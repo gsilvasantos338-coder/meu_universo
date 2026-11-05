@@ -1,0 +1,230 @@
+**English** | [简体中文](README.zh-CN.md) | [日本語](README.ja.md) | [한국어](README.ko.md)
+
+# Galaxy Explorer 🌌
+Demo Page
+https://zjoooooo.github.io/galaxy-explorer/
+
+<img width="1920" height="945" alt="Image_2026-07-04_141404_478" src="https://github.com/user-attachments/assets/ce6388f3-5854-4c13-9d6c-daccac89bf24" />
+
+Latest View
+<img width="3006" height="1706" alt="image" src="https://github.com/user-attachments/assets/3553f380-a4df-4853-be31-d21faaa4c24d" />
+
+
+An interactive, procedurally-generated **Milky Way galaxy** — with a full 3D
+**Solar System**, a roaming **comet**, and real **radio-galaxy jets** — that runs
+entirely in the browser with WebGL (three.js). No backend, no build step, no
+dependencies to install, no API keys — just open the page and explore.
+
+The galaxy itself is generated in code at load time: **almost no image assets**
+— the spiral arms, the painted disc, star clusters, distant galaxies and supernovae
+are all math (the Magellanic Clouds and Centaurus A additionally sample their
+star positions and colours from three CC BY photo plates). The Solar System
+layers real NASA-based surface textures on top for the planets, moons and Sun.
+
+**Free for any use** — personal, commercial, academic and teaching — under the
+[MIT License](LICENSE).
+
+
+## ✨ Features
+
+- **Painted Milky Way** — the disc is an oil painting made on the GPU at load:
+  brush strokes swept along four spiral arms, dark dust lanes on each arm's inner
+  edge, pink star-forming specks, a cream-gold core and a soft rim. ~30,000 stars
+  stay quiet from afar and sparkle as you fly in, where the painting gives way to
+  the stars.
+- **Galactic bulge** — a smooth multi-scale glow core that slowly "breathes".
+- **Deep-field sky** — a twinkling star field plus ~170 tiny distant galaxies
+  (ellipticals, spirals, edge-on disks, irregulars), a rich galaxy cluster, and
+  one large Andromeda-style neighbour — all in just two draw calls.
+- **Physically-modelled ambient events** — occasional shooting stars, meteor
+  showers, and supernovae that follow a real light curve (t².³ rise → rounded
+  peak → two-slope fade) with a four-pointed diffraction-spike flash.
+- **Interactive beacons** — ~30 clickable markers (the Solar System, Sagittarius
+  A*, famous nebulae, clusters, stars and black holes) open detailed five-language
+  info cards with a glowing 3D ring on the selected object. Fly close to an
+  external galaxy and its own **in-galaxy objects** appear — star-forming regions,
+  globular clusters, supernova remnants, and radio jets, each with its own card.
+  A bottom strip lists all 25 beacons inside the Milky Way, so nothing needs
+  hunting.
+- **Painted neighbour galaxies** — the seven external galaxies are painted the
+  same way, each in the colours telescopes see: Andromeda's cream core and
+  blue-violet ring, Triangulum's pink star-forming knots, the Sombrero's ivory
+  crown and dark brim, M87's warm glow. Ellipticals sit on camera-facing
+  paintings that flatten as you orbit them. The Magellanic Clouds and
+  Centaurus A take their star positions and colours from real ESO/NOIRLab
+  photographs, and their paintings follow those plates; Centaurus A's dust lane
+  is a raymarched absorption slab that reddens at its thin edges. Every star in
+  the external galaxies and along the Milky Way's arms has a hot core inside a
+  coloured halo; in the external galaxies they are also size-capped so close
+  fly-bys stay crisp.
+- **Radio-galaxy jets** — **Centaurus A**'s jet borrows the comet's ion-tail
+  technique: particles stream out of a pulsing nucleus, dense and slow at the
+  core, sparse and rushing at the tip, with drifting magnetic kinks, a dimmed
+  violet counter-stream and an orange crescent plume capping the outflow.
+  **M87** keeps its famous *one-sided* jet, because its counter-jet is
+  Doppler-dimmed into invisibility.
+- **Solar System guide** — follow the **Solar System** beacon and ride a
+  six-second **wormhole** into a full 3D Solar System: the Sun, all eight
+  planets, the Moon, Ceres, Pluto and seven more famous moons, wrapped in real
+  NASA-based imagery (4K for the main worlds on desktop, 2K on touch devices)
+  and lit by a single sunlight source at the Sun. Click any world for its
+  illustrated five-language card, then hit **Fly to this world** to sweep over
+  and *ride along* with the
+  orbiting planet while its moons appear. A **living Sun** keeps its drifting
+  granulation and migrating sunspots at every zoom, and up close wears a
+  pearl-white corona ring with prominences that pour out and disperse;
+  a true-span **asteroid belt** with the Kirkwood gap, a **Kuiper belt**, faint
+  rings on the giants, and translucent limb **atmospheres** complete the scene.
+  A **comet** roams an eccentric orbit, unfurling the classic twin tails — a
+  straight blue ion tail and a curved white dust tail — near the Sun; click it
+  to read how they work, or **chase** it. Orbital and axial motion are
+  intentionally slowed for observation; display scale and starting positions
+  are arranged for readability, not a literal scale model or real-time ephemeris.
+- **Constellation sky view** — from Earth's card, drop through an
+  atmosphere-white flash into an Earth-centred, rotatable star dome with **25
+  constellations** (the 12 zodiac plus 13 famous others) drawn from real J2000
+  star positions, and the **7 external galaxies** sitting inside their true host
+  constellations — each with its own five-language photo card. Pick a zodiac
+  constellation and its figure blooms overhead in gold: a shimmering wireframe
+  with the constellation's own stars twinkling on top.
+- **Five languages** — labels, cards and navigation switch between English,
+  Simplified Chinese, Traditional Chinese, Japanese and Korean (top-right
+  selector; choice remembered).
+- **Cinematic look** — selective bloom + ACES tone-mapping.
+- **Performance-aware** — an FPS watchdog steps down dust density, resolution
+  and bloom on weak GPUs so it stays smooth on laptops, TVs and kiosks.
+
+## 🎯 Where you can use it
+
+- **Learning & teaching** — a compact, readable, single-file example of WebGL,
+  three.js, GLSL shaders, procedural generation, particle systems and noise
+  (fBm, line-integral convolution). Great for astronomy, computer-graphics and creative-coding
+  classes. Every subsystem is self-contained and commented.
+- **Backgrounds & screensavers** — an ambient galaxy for a landing page hero,
+  a desktop/second-monitor background, or an idle screen.
+- **Digital signage & installations** — lobby screens, museum/planetarium
+  displays, event backdrops. Runs full-screen (press `F` for cinema mode).
+- **A starting point** — fork it and build your own space visualization, data
+  viz on a galactic canvas, game background, or art project.
+
+## 🚀 Install & run
+
+**No installation.** Just get the files and serve them over HTTP (browsers block
+some features like audio and textures on the `file://` protocol).
+
+```sh
+# 1. get the code
+git clone https://github.com/zjoooooo/galaxy-explorer.git
+cd galaxy-explorer
+
+# 2. serve it with any static server, e.g.:
+python -m http.server 8000
+#   or:  npx serve .
+#   or:  php -S localhost:8000
+
+# 3. open http://localhost:8000/
+```
+
+**Deploy anywhere static:** GitHub Pages, Netlify, Vercel, Cloudflare Pages, S3,
+nginx, or any web host. Just upload the folder — there is nothing to build.
+
+## 🎮 Controls
+
+| Control | Effect |
+|---|---|
+| **drag** | orbit the camera |
+| **scroll / pinch** | zoom in / out |
+| **click a beacon, body or comet** | open its card; selecting a body leaves the camera and motion unchanged |
+| **Fly to this world / Chase this comet** | (on the card) sweep over and ride along with the moving object |
+| **Back** | return one level: sky → Earth → Solar overview → galaxy |
+| **`Esc`** | staged return: close a card, then leave the current Solar level, then the Solar System |
+| **`F`** | cinema mode — hide all UI |
+| **`M`** | background music on / mute (optional, see below) |
+
+**URL parameters**
+
+- `?fx=1` — demo mode: forces a shooting star / meteor shower / supernova every
+  4 s so you can see the ambient effects immediately.
+
+## 🎛️ Customise
+
+Open `index.html` and edit the **tunables** block near the top of the `<script>`:
+
+```js
+var BLOOM = { strength: 0.08, radius: 0.32, threshold: 0.42 }; // glow
+var DUST  = { count: 30000, radius: 360, arms: 4, tight: 0.85, brightness: 0.5, ... };
+var GALAXY_SPIN = 0.013; // rotation speed (radians/sec)
+```
+
+- `DUST.count` — total star/dust budget (lower it for weaker hardware).
+- `DUST.arms` / `DUST.tight` — number of spiral arms and how tightly they wind.
+- `BLOOM.strength` — overall glow (0 = off).
+- `GALAXY_SPIN` — how fast the whole galaxy rotates.
+
+## 🎵 Background music
+
+Three ambient tracks ship in `audio/` and **autoplay on load** (with a
+first-gesture fallback for browsers that block autoplay). Use the speaker button
+(bottom-right) or press `M` to mute / unmute; hover it to pick a track by name.
+Tracks loop.
+
+To change the music, drop your own `.mp3` files in `audio/` and list their file
+names in `MUSIC_TRACKS` inside `index.html`:
+
+```js
+var MUSIC_TRACKS = ['ambient 1.mp3', 'ambient 2.mp3'];
+```
+
+Leave `MUSIC_TRACKS` empty to hide the speaker button entirely.
+**Please don't commit copyrighted audio you don't have the rights to share.**
+
+## 🛠️ How it works (in brief)
+
+Vanilla JavaScript + three.js r128 (vendored under `vendor/`). One self-contained
+`index.html`. The galaxy is built once at load:
+
+1. Dust points are scattered on density-wave spiral arms (a `Points` cloud).
+2. A fragment shader paints the disc once into a texture (noise smeared along
+   the spiral flow by line-integral convolution); the disc fades out up close.
+3. Sprite glows form the bulge; a twinkling far-sphere is the background sky.
+4. A procedural texture atlas + billboarded quad batch draws the distant galaxies.
+5. Post-processing: `UnrealBloomPass` for glow, then an ACES tone-map pass.
+
+Ambient effects (meteors, supernovae) are short-lived objects that spawn on a
+schedule and dispose themselves — zero steady per-frame cost when idle.
+
+The Solar System is a second scene, entered through the wormhole transition. Its
+planets are lit by a single point light at the Sun and textured with bundled
+NASA / Solar System Scope maps (loaded on first entry). Comets, jets, prominences
+and tails are particle systems written into preallocated buffers each frame.
+
+## 🤝 Contributing
+
+Contributions, forks and ideas are very welcome! This is a friendly project meant
+to be learned from and built on.
+
+- **Found a bug or have an idea?** Open an
+  [issue](https://github.com/zjoooooo/galaxy-explorer/issues).
+- **Want to add something?** Fork the repo, make your change, and open a pull
+  request. Some ideas: new ambient effects, more galaxy morphologies, a settings
+  panel, VR/mobile support, colour themes, or performance improvements.
+- **Keep it dependency-free and single-file** where you can — that's what makes it
+  easy to learn from and drop into any project.
+- Test your change by serving the folder and opening it in a browser; there is no
+  build or test suite to run.
+
+By contributing you agree that your contributions are licensed under the MIT
+License.
+
+## 📄 License
+
+[MIT](LICENSE) — free for any use, including commercial and educational.
+Attribution is appreciated but not required.
+
+three.js and its example modules (bundled under `vendor/`) are © the three.js
+authors, also under the MIT License. The bundled astronomy photography and the
+background music (from Pixabay) carry their own licences — see
+[THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md).
+#   m e u _ u n i v e r s o  
+ #   m e u _ u n i v e r s o  
+ 

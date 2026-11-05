@@ -1,0 +1,19 @@
+THIRD-PARTY CHARACTER MODEL ATTRIBUTION
+
+Lula da Silva – 3D Printable Bust
+Author: generalista3D
+Source: https://skfb.ly/pPCyH
+License: Creative Commons Attribution 4.0 International (CC BY 4.0)
+License URL: https://creativecommons.org/licenses/by/4.0/
+Changes: head and eyes were kept from the downloaded bust; base and torso were removed for use as the character head.
+
+Jair Bolsonaro
+Author: AlexFerrart3D
+Source: https://sketchfab.com/3d-models/jair-bolsonaro-6ac0a141bab743c5bab4c520f104a475
+License: Creative Commons Attribution 4.0 International (CC BY 4.0)
+License URL: https://creativecommons.org/licenses/by/4.0/
+Changes: the downloaded Blender project was converted to GLB for browser use and used as the character head.
+
+THREE.JS GLTFLoader
+Source: https://github.com/mrdoob/three.js/tree/r128/examples/js/loaders/GLTFLoader.js
+License: MIT. See vendor/GLTFLoader-LICENSE.txt.
