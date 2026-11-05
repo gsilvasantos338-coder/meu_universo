@@ -26,10 +26,11 @@
 <style>
   :root { color-scheme: dark; }
   * { box-sizing: border-box; }
-  html, body { margin: 0; height: 100%; background: #03040a; color: #e5e7eb;
+  html, body { margin: 0; width:100%; height: 100%; background: #03040a; color: #e5e7eb;
     font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; overflow: hidden;
     user-select: none; -webkit-user-select: none; }
   #cv { display: block; width: 100vw; height: 100vh; }
+  #cv { touch-action:none; }
 
   .overlay { position: fixed; z-index: 5; }
   #title { top: calc(14px + env(safe-area-inset-top, 0px)); left: calc(18px + env(safe-area-inset-left, 0px)); font-size: 15px; font-weight: 600; pointer-events: none; }
@@ -103,7 +104,7 @@
   @media (orientation:landscape) { #rotate-phone-hint.show { display:none; } }
   @media(max-width:700px) { #universe-tools { bottom:calc(62px + env(safe-area-inset-bottom,0px)); width:calc(100vw - 16px); padding:7px; } #universe-tools .tool-head { font-size:10px; } #universe-tools .tool-buttons { justify-content:flex-start; overflow-x:auto; scrollbar-width:none; } #universe-tools .tool-buttons::-webkit-scrollbar { display:none; } #universe-tools button { padding:8px 10px; font-size:11px; } }
   @media(max-width:700px) and (orientation:portrait) { #universe-tools { bottom:calc(62px + env(safe-area-inset-bottom,0px)); } #universe-tools .tool-status { max-height:2.7em; overflow:hidden; } #solartime { bottom:calc(8px + env(safe-area-inset-bottom,0px)); } #solarstrip { bottom:calc(52px + env(safe-area-inset-bottom,0px)); } }
-  @media(max-width:700px) and (orientation:landscape) { #universe-tools { bottom:calc(12px + env(safe-area-inset-bottom,0px)); width:min(720px,calc(100vw - 150px)); padding:5px 7px; } #universe-tools .tool-status { display:none; } #universe-tools .tool-head { margin-bottom:4px; } #universe-tools button { padding:6px 8px; } #solarstrip { bottom:calc(66px + env(safe-area-inset-bottom,0px)); } #solartime { bottom:calc(10px + env(safe-area-inset-bottom,0px)); } }
+  @media(max-width:700px) and (orientation:landscape) { #universe-tools { bottom:calc(8px + env(safe-area-inset-bottom,0px)); width:min(610px,calc(100vw - 130px)); padding:4px 6px; border-radius:11px; } #universe-tools .tool-status { display:none; } #universe-tools .tool-head { margin-bottom:3px; font-size:9px; } #universe-tools .tool-buttons { gap:4px; } #universe-tools button { padding:5px 6px; font-size:9px; gap:4px; } #universe-tools button svg { width:14px;height:14px; } #solarstrip { bottom:calc(52px + env(safe-area-inset-bottom,0px)); } #solartime { bottom:calc(6px + env(safe-area-inset-bottom,0px)); } #solarflight { top:auto; bottom:calc(52px + env(safe-area-inset-bottom,0px)); } }
   #solarstrip i, #galaxystrip i { width: 7px; height: 7px; border-radius: 50%; flex: none; }
   #galaxystrip button.sel { border-color: #9cc0ff; color: #fff; background: rgba(30,42,68,.9); }
   /* scroll hint: the roster fades out at whichever edge has more buttons beyond it */
@@ -3284,9 +3285,10 @@
     attach('tool-snake',function(){if(!ready())return;setGameToolBusy(true,'A cobra está atacando. Aguarde o fim da animação.');makeGameSnake(gameTargetId).then(function(){if(!solarGameAnimations.some(function(a){return a.type==='snake';}))setGameToolBusy(false);else effect('🐍','A cobra está se enrolando no planeta','15% no impacto');});});
     attach('tool-duo',function(){if(!ready())return;setGameToolBusy(true,'Carregando a dupla. Aguarde o ataque terminar.');makeGameDuo(gameTargetId).then(function(spawned){if(!spawned){setGameToolBusy(false);return;}effect('🥸 + 🕶️','Lula e Bolsonaro, ladrões de gibi','cada um leva 10%');var s=document.getElementById('tool-status');if(s)s.textContent='Os dois ladrões chegam juntos, rodeiam o planeta e roubam um pedaço: 10% cada.';});});
     var laser=document.getElementById('tool-laser');
-    if(laser) { laser.addEventListener('pointerdown',function(e){e.preventDefault();if(!ready())return;if(startGameLaser()){setGameToolBusy(true,'Laser ativo: arraste o mouse para mirar e solte para encerrar.');gameLaserAimLast={x:e.clientX,y:e.clientY};laser.classList.add('active');}}); }
-    window.addEventListener('pointermove',function(e){if(!gameLaserActive||!gameLaserAimLast)return;var dx=e.clientX-gameLaserAimLast.x,dy=e.clientY-gameLaserAimLast.y;gameLaserAimLast={x:e.clientX,y:e.clientY};solarFlight.yaw-=dx*.0035;solarFlight.pitch=Math.max(-1.48,Math.min(1.48,solarFlight.pitch-dy*.0035));solarControls.target.copy(solarCamera.position).addScaledVector(solarFlightDirection(),solarFlight.lookDistance);solarCamera.lookAt(solarControls.target);});
-    window.addEventListener('pointerup',function(){if(gameLaserActive){stopGameLaser();gameLaserAimLast=null;setGameToolBusy(false);}var b=document.getElementById('tool-laser');if(b)b.classList.remove('active');});
+    if(laser) { laser.addEventListener('pointerdown',function(e){e.preventDefault();if(!ready())return;if(startGameLaser()){setGameToolBusy(true,'Laser ativo: arraste para mirar e solte para encerrar.');gameLaserAimLast={x:e.clientX,y:e.clientY,pointerId:e.pointerId};if(laser.setPointerCapture)try{laser.setPointerCapture(e.pointerId);}catch(err){}laser.classList.add('active');}}); }
+    window.addEventListener('pointermove',function(e){if(!gameLaserActive||!gameLaserAimLast||e.pointerId!==gameLaserAimLast.pointerId)return;var dx=e.clientX-gameLaserAimLast.x,dy=e.clientY-gameLaserAimLast.y;gameLaserAimLast.x=e.clientX;gameLaserAimLast.y=e.clientY;solarFlight.yaw-=dx*.0035;solarFlight.pitch=Math.max(-1.48,Math.min(1.48,solarFlight.pitch-dy*.0035));solarControls.target.copy(solarCamera.position).addScaledVector(solarFlightDirection(),solarFlight.lookDistance);solarCamera.lookAt(solarControls.target);});
+    function finishLaser(e){if(!gameLaserActive||!gameLaserAimLast||e.pointerId!==gameLaserAimLast.pointerId)return;stopGameLaser();gameLaserAimLast=null;setGameToolBusy(false);if(laser)laser.classList.remove('active');}
+    window.addEventListener('pointerup',finishLaser);window.addEventListener('pointercancel',finishLaser);window.addEventListener('lostpointercapture',finishLaser);
     window.addEventListener('blur',function(){if(gameLaserActive){stopGameLaser();setGameToolBusy(false);}});
     attach('tool-reset',function(){
       clearSolarGameAttacks();setGameToolBusy(false);var laserButton=document.getElementById('tool-laser');if(laserButton)laserButton.classList.remove('active');
@@ -3776,8 +3778,10 @@
     var rect = renderer.domElement.getBoundingClientRect();
     return { x: e.clientX - rect.left, y: e.clientY - rect.top, width: rect.width, height: rect.height };
   }
+  var solarTouchGesture={points:Object.create(null),pinch:0,pinchDistance:0,pinchCameraDistance:0};
   renderer.domElement.addEventListener('pointerdown', function (e) {
     if (viewMode !== 'solar') return;
+    if(e.pointerType==='touch'){solarTouchGesture.points[e.pointerId]={x:e.clientX,y:e.clientY};var touchIds=Object.keys(solarTouchGesture.points);if(touchIds.length===2){var ta=solarTouchGesture.points[touchIds[0]],tb=solarTouchGesture.points[touchIds[1]];solarTouchGesture.pinchDistance=Math.hypot(ta.x-tb.x,ta.y-tb.y);solarTouchGesture.pinchCameraDistance=solarCamera.position.distanceTo(solarControls.target);solarPointer.down=false;solarFlight.dragging=false;}if(renderer.domElement.setPointerCapture)try{renderer.domElement.setPointerCapture(e.pointerId);}catch(err){}}
     if (solarEventRide) cancelSolarEventRide(); // grabbing the view hands the clock back
     solarIdleSince = videoNow(); solarArrivalSpin = null; // any grab ends the camera's own ideas
     if (solarFlight.enabled) {
@@ -3788,6 +3792,7 @@
   });
   renderer.domElement.addEventListener('pointermove', function (e) {
     if (viewMode !== 'solar') return;
+    if(e.pointerType==='touch'&&solarTouchGesture.points[e.pointerId]){solarTouchGesture.points[e.pointerId].x=e.clientX;solarTouchGesture.points[e.pointerId].y=e.clientY;var ids=Object.keys(solarTouchGesture.points);if(ids.length>=2){var ta=solarTouchGesture.points[ids[0]],tb=solarTouchGesture.points[ids[1]],dist=Math.max(1,Math.hypot(ta.x-tb.x,ta.y-tb.y)),d=Math.min(solarControls.maxDistance,Math.max(solarControls.minDistance,solarTouchGesture.pinchCameraDistance*solarTouchGesture.pinchDistance/dist)),dir=solarCamera.position.clone().sub(solarControls.target).normalize();solarCamera.position.copy(solarControls.target).addScaledVector(dir,d);solarControls.update();return;}if(solarFlight.enabled&&solarFlight.dragging){var tdx=e.clientX-solarFlight.lastX,tdy=e.clientY-solarFlight.lastY;solarFlight.lastX=e.clientX;solarFlight.lastY=e.clientY;solarFlight.yaw-=tdx*.0035;solarFlight.pitch=Math.max(-1.48,Math.min(1.48,solarFlight.pitch-tdy*.0035));solarControls.target.copy(solarCamera.position).addScaledVector(solarFlightDirection(),solarFlight.lookDistance);solarCamera.lookAt(solarControls.target);}return;}
     if (solarFlight.enabled && solarFlight.dragging) {
       var dx = e.clientX - solarFlight.lastX, dy = e.clientY - solarFlight.lastY;
       solarFlight.lastX = e.clientX; solarFlight.lastY = e.clientY;
@@ -3800,6 +3805,7 @@
     var point = solarPointerPosition(e); if (Math.abs(point.x - solarPointer.x) > 6 || Math.abs(point.y - solarPointer.y) > 6) solarPointer.moved = true;
   });
   renderer.domElement.addEventListener('pointerup', function (e) {
+    if(e.pointerType==='touch')delete solarTouchGesture.points[e.pointerId];
     if (!solarPointer.down || viewMode !== 'solar') return;
     solarFlight.dragging = false;
     solarPointer.down = false; if (solarPointer.moved) return;
@@ -3842,7 +3848,7 @@
       else if (best) { selectSolarBody(best); if (SOLAR_BY_ID[best] && SOLAR_BY_ID[best].kind === 'planet') flySolarTo(best); }
     } else if (solarCardOpen && e.button === 0) { clearSolarCard(); if (solarFly) solarFly.noCard = true; } // empty space: close the card, as the galaxy and sky views do
   });
-  renderer.domElement.addEventListener('pointercancel', function () { solarFlight.dragging = false; solarPointer.down = false; });
+  renderer.domElement.addEventListener('pointercancel', function (e) { if(e.pointerType==='touch')delete solarTouchGesture.points[e.pointerId];solarFlight.dragging = false; solarPointer.down = false; });
   var solarMapsPreloaded = false, solarPreloadPromise = null, solarPreloadSettled = false, solarPreloadCount = 0;
   var solarUploadQueue = [], solarMoonMapsLoaded = {}, solarMapsDetached = false, solarResourceDetachCount = 0;
   function solarQueueMaps(object, maps) {
@@ -5177,19 +5183,9 @@
     var overlay = document.getElementById('opening-sequence'), text = document.getElementById('opening-text');
     var phrase = 'Bem-vindo ao meu universo';
     overlay.classList.add('show'); overlay.setAttribute('aria-hidden', 'false');
-    var index = 0;
-    function typeNext() {
-      if (index < phrase.length) { text.textContent += phrase.charAt(index++); window.setTimeout(typeNext, phrase.charAt(index - 1) === ' ' ? 115 : 72); return; }
-      window.setTimeout(function () {
-        overlay.classList.remove('show');
-        window.setTimeout(function () {
-          overlay.setAttribute('aria-hidden', 'true');
-          enterSolar();
-          if (rafId == null && !document.hidden) rafId = requestAnimationFrame(frame);
-        }, 950);
-      }, 850);
-    }
-    window.requestAnimationFrame(function () { overlay.classList.add('show'); window.setTimeout(typeNext, 520); });
+    var index=0,last=0,step=75;
+    function typeFrame(now){if(!last)last=now;if(now-last>=step){var count=Math.max(1,Math.floor((now-last)/step));text.textContent=phrase.slice(0,Math.min(phrase.length,index+count));index=Math.min(phrase.length,index+count);last=now;}if(index<phrase.length){requestAnimationFrame(typeFrame);return;}window.setTimeout(function(){overlay.classList.remove('show');window.setTimeout(function(){overlay.setAttribute('aria-hidden','true');enterSolar();if(rafId==null&&!document.hidden)rafId=requestAnimationFrame(frame);},650);},500);}
+    requestAnimationFrame(typeFrame);
   }
   function startLoop() {
     if (viewMode === 'galaxy') { playOpeningSequence(); return; }
